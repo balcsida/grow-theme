@@ -21,7 +21,6 @@
 </script>
 <#assign WikiHelperService = serviceLocator.findService("com.liferay.grow.wiki.helper.service.WikiHelperService")>
 <#assign JSONFactoryUtil = serviceLocator.findService("com.liferay.portal.kernel.json.JSONFactoryUtil")>
-<#assign TaskHandler = serviceLocator.findService("com.liferay.micro.maintainance.api.TaskHandler")>
 <#assign UserLocalService = serviceLocator.findService("com.liferay.portal.kernel.service.UserLocalService")>
 <#assign AssetTagLocalService = serviceLocator.findService("com.liferay.asset.kernel.service.AssetTagLocalService")>
 <#assign SubscriptionLocalService = serviceLocator.findService("com.liferay.portal.kernel.service.SubscriptionLocalService")>
@@ -34,7 +33,6 @@
 <#assign childPagesList = JSONFactoryUtil.looseDeserialize(childPages.childPages)>
 <#assign linkedPages = WikiHelperService.getLinkedPages(entry.getNodeId(), entry.getTitle())>
 <#assign linkedPagesList = JSONFactoryUtil.looseDeserialize(linkedPages.linkedPages)>
-<#assign availableTasks = TaskHandler.getAvailableFlags(entry.getPageId())>
 
 <#assign wikiPageClassName = "com.liferay.wiki.model.WikiPage" >
 <#assign wikiNodeClassName = "com.liferay.wiki.model.WikiNode" >
@@ -73,7 +71,6 @@
 						<li><@displayAddChildLink/></li>
 						<li><@displayPageSubscription/></li>
 						<li><@displayPageDetails/></li>
-						<li><@displayTaskFlagging/></li>
 						<@getRatings/>
 					</ul>
 				</div>
@@ -201,12 +198,6 @@
 	</div>
 
 <#--   macros   -->
-
-<#macro displayTaskFlagging>
-   <#if availableTasks?has_content>
-    <a class="btn btn-default btn-block" data-placement="right" title="Outdated" data-animation="true" href="javascript:;" id="myPopoverAnim"><span class="glyphicon glyphicon-flag"> </span></a>
-   </#if>
-</#macro>
 
 <#macro displayEditLink>
 	<#assign editPageURL = renderResponse.createRenderURL() />
